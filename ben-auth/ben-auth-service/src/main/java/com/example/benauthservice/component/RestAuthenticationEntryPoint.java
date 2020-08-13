@@ -1,0 +1,31 @@
+package com.example.benauthservice.component;
+
+import com.alibaba.fastjson.JSON;
+import com.example.bencommon.base.CommonResult;
+import com.example.bencommon.constants.ResultCode;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.stereotype.Component;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+
+/**
+ * @author wangben
+ */
+@Component
+public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
+    @Override
+    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Cache-Control", "no-cache");
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("application/json");
+        response.getWriter().println(JSON.toJSON(CommonResult.failed(ResultCode.UNAUTHORIZED)));
+        response.getWriter().flush();
+    }
+}

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.benuserclient.dao.UserPermissionDao">
+   <select id="getUserPermissionUrls" resultType="com.example.ben.dto.UserPermissionUrlDto">
+    select p.name,p.method,p.url,p.id permissionId,r.name role
+    from (select * from ben_user_role where user_id = #{userId}) ur
+         inner join ben_role r on ur.role_id = r.id
+         inner join ben_role_perm rp on ur.role_id = rp.role_id
+         inner join ben_permission p on rp.perm_id = p.id
+    where p.status = 1 and r.status=1
+   </select>
+</mapper>

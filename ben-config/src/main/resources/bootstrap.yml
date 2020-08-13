@@ -1,0 +1,33 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
+
+spring:
+  application:
+    name: ben-config
+  cloud:
+    config:
+      server:
+        bootstrap: true
+        git:
+          uri: https://gitee.com/playful_children/ben-config.git
+          username: playful_children
+          password: wang06061X
+          search-paths: /**
+  #          basedir: ./tmp
+  boot:
+    admin:
+      client:
+        url: http://127.0.0.1:9000
+        instance:
+          service-base-url: http://127.0.0.1:8002
+
+log:
+  path: /apps/config-server
+server:
+  port: 8002
